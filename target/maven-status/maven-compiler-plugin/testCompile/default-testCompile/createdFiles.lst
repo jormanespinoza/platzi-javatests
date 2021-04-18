@@ -1,0 +1,4 @@
+com\platzi\javatests\util\PasswordUtilTest.class
+com\platzi\javatests\util\StringUtilTest.class
+com\platzi\javatests\payments\PaymentProcessorTest.class
+com\platzi\javatests\player\PlayerTest.class
