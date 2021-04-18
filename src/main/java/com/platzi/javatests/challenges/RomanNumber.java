@@ -4,84 +4,79 @@ public class RomanNumber {
 
     public static String arabicToRoman(int n) {
         if (n <= 0 || n >= 4000) {
-            throw new RuntimeException("Sólo se permiten números posivitos entre 1 y 4000");
+            throw new IllegalArgumentException("Sólo se permiten números positivos entre 1 y 4000");
         }
 
-        int arabicNumberSize = String.valueOf(n).length();
+        int actualArabicNumberSize = String.valueOf(n).length();
         String arabicNumber = String.valueOf(n);
+        StringBuilder romanNumber = new StringBuilder();
 
-        String romanNumber = "";
         for (int i = 0; i < String.valueOf(n).length(); i++) {
-            int arabic = Integer.parseInt(arabicNumber.substring(i, i + 1));
-            String actualRoman = getRoman(arabic, arabicNumberSize);
+            int actualArabicNumber = Integer.parseInt(arabicNumber.substring(i, i + 1));
+            String actualRoman = getRoman(actualArabicNumber, actualArabicNumberSize);
 
-            if (actualRoman.equals("") && arabic <= 3) {
-                actualRoman = getIes(arabicNumberSize, arabic, actualRoman);
+            if (actualRoman.equals("") && actualArabicNumber <= 3) {
+                actualRoman = getRepeateadLetters(actualArabicNumberSize, actualArabicNumber, actualRoman);
             }
 
-            if (actualRoman.equals("") && arabic == 4) {
-                actualRoman += getRoman(1, arabicNumberSize) + getRoman(5, arabicNumberSize);
+            if (actualRoman.equals("") && actualArabicNumber == 4) {
+                actualRoman += getRoman(1, actualArabicNumberSize) + getRoman(5, actualArabicNumberSize);
             }
 
-            if (actualRoman.equals("") && arabic >= 4 && arabic <= 8) {
-                actualRoman += getRoman(5, arabicNumberSize) + getIes(arabicNumberSize, arabic % 5, actualRoman);
+            if (actualRoman.equals("") && actualArabicNumber >= 6 && actualArabicNumber <= 8) {
+                actualRoman += getRoman(5, actualArabicNumberSize) + getRepeateadLetters(actualArabicNumberSize, actualArabicNumber % 5, actualRoman);
             }
 
-            if (actualRoman.equals("") && arabic == 9) {
-                actualRoman += getIes(arabicNumberSize, 1, actualRoman) + getRoman(1, arabicNumberSize + 1);
+            if (actualRoman.equals("") && actualArabicNumber == 9) {
+                actualRoman += getRepeateadLetters(actualArabicNumberSize, 1, actualRoman) + getRoman(1, actualArabicNumberSize + 1);
             }
 
-            romanNumber += actualRoman;
-
-            arabicNumberSize--;
+            romanNumber.append(actualRoman);
+            actualArabicNumberSize--;
         }
 
-        return romanNumber;
+        return romanNumber.toString();
     }
 
-    private static String getIes(int arabicNumberSize, int times, String actualRoman) {
-        for (int j = 0; j < times; j++) {
-            actualRoman += getRoman(1, arabicNumberSize);
-        }
-
-        return actualRoman;
+    private static String getRepeateadLetters(int arabicNumberSize, int times, String actualRoman) {
+        return actualRoman + String.valueOf(getRoman(1, arabicNumberSize)).repeat(Math.max(0, times));
     }
 
     private static String getRoman(int n, int arabicSize) {
-        String roman = "";
-
-        if (arabicSize > 1) {
-            n *= Math.pow(10, arabicSize - 1);
-        }
+        String roman;
+        n *= Math.pow(10, arabicSize - 1);
 
         switch (n) {
             case 1: {
-                roman += "I";
+                roman = "I";
                 break;
             }
             case 5: {
-                roman += "V";
+                roman = "V";
                 break;
             }
             case 10: {
-                roman += "X";
+                roman = "X";
                 break;
             }
             case 50: {
-                roman += "L";
+                roman = "L";
                 break;
             }
             case 100: {
-                roman += "C";
+                roman = "C";
                 break;
             }
             case 500: {
-                roman += "D";
+                roman = "D";
                 break;
             }
             case 1000: {
-                roman += "M";
+                roman = "M";
+                break;
             }
+            default:
+                roman = "";
         }
 
         return roman;

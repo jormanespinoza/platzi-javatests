@@ -19,11 +19,6 @@ class RomanNumberShould {
     }
 
     @Test
-    void return_I_when_number_is_one() {
-        assertEquals("I", RomanNumber.arabicToRoman(1));
-    }
-
-    @Test
     void return_II_when_number_is_two() {
         assertEquals("II", RomanNumber.arabicToRoman(2));
     }
@@ -36,11 +31,6 @@ class RomanNumberShould {
     @Test
     void return_IV_when_number_is_four() {
         assertEquals("IV", RomanNumber.arabicToRoman(4));
-    }
-
-    @Test
-    void return_V_when_number_is_five() {
-        assertEquals("V", RomanNumber.arabicToRoman(5));
     }
 
     @Test
@@ -61,11 +51,6 @@ class RomanNumberShould {
     @Test
     void return_VI_when_number_is_nine() {
         assertEquals("IX", RomanNumber.arabicToRoman(9));
-    }
-
-    @Test
-    void return_X_when_number_is_ten() {
-        assertEquals("X", RomanNumber.arabicToRoman(10));
     }
 
     @Test
@@ -164,6 +149,11 @@ class RomanNumberShould {
     }
 
     @Test
+    void return_CDXCV_when_number_is_fourhundredandninetynine() {
+        assertEquals("CDXCV", RomanNumber.arabicToRoman(495));
+    }
+
+    @Test
     void return_CM_when_number_is_ninehundred() {
         assertEquals("CM", RomanNumber.arabicToRoman(900));
     }
@@ -175,7 +165,7 @@ class RomanNumberShould {
 
     @Test
     void thorw_runtimeexception_when_number_is_lower_or_equal_than_0_or_greater_or_equal_than_4000() {
-        assertThrows(RuntimeException.class, () -> RomanNumber.arabicToRoman(0));
-        assertThrows(RuntimeException.class, () -> RomanNumber.arabicToRoman(4000));
+        assertThrows(IllegalArgumentException.class, () -> RomanNumber.arabicToRoman(0));
+        assertThrows(IllegalArgumentException.class, () -> RomanNumber.arabicToRoman(4000));
     }
 }
