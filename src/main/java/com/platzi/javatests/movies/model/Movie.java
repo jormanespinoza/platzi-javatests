@@ -6,15 +6,15 @@ public class Movie {
 
     private final Integer id;
     private final String name;
-    private final int minutes;
+    private final Integer minutes;
     private final Genre genre;
     private final String director;
 
-    public Movie(String name, int minutes, Genre genre, String director) {
+    public Movie(String name, Integer minutes, Genre genre, String director) {
         this(null, name, minutes, genre, director);
     }
 
-    public Movie(Integer id, String name, int minutes, Genre genre, String director) {
+    public Movie(Integer id, String name, Integer minutes, Genre genre, String director) {
         this.id = id;
         this.name = name;
         this.minutes = minutes;
@@ -30,7 +30,7 @@ public class Movie {
         return name;
     }
 
-    public int getMinutes() {
+    public Integer getMinutes() {
         return minutes;
     }
 
@@ -47,7 +47,7 @@ public class Movie {
         if (this == o) return true;
         if (!(o instanceof Movie)) return false;
         Movie movie = (Movie) o;
-        return getMinutes() == movie.getMinutes() && Objects.equals(getId(), movie.getId()) && Objects.equals(getName(), movie.getName()) && getGenre() == movie.getGenre() && Objects.equals(getDirector(), movie.getDirector());
+        return Objects.equals(getId(), movie.getId()) && Objects.equals(getName(), movie.getName()) && Objects.equals(getMinutes(), movie.getMinutes()) && getGenre() == movie.getGenre() && Objects.equals(getDirector(), movie.getDirector());
     }
 
     @Override

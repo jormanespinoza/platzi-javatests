@@ -47,4 +47,14 @@ class MovieServiceShould {
 
         moviesByLength.forEach(movie -> assertTrue(movie.getMinutes() <= 119));
     }
+
+    /*
+        String name = null; // no queremos buscar por nombre
+        Integer minutes = 150; // 2h 30m
+        Genre genre = Genre.ACTION;
+        Movie template = new Movie(name, minutes, genre);
+        Collection<Movie> movies =
+            movieService.findMoviesByTemplate(template);
+        assertThat(getMovieIds(movies), is(Arrays.asList(7)) );
+     */
 }

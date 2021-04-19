@@ -12,13 +12,13 @@ import org.springframework.jdbc.datasource.init.ScriptUtils;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.platzi.javatests.movies.model.Genre.ACTION;
 import static com.platzi.javatests.movies.model.Genre.THRILLER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MovieRepositoryIntegrationTest {
 
@@ -100,6 +100,20 @@ class MovieRepositoryIntegrationTest {
         Collection<Movie> movies = movieRepository.findByDirector("Tarantino");
 
         assertEquals(new ArrayList<>(), movies);
+    }
+
+    @Test
+    void throw_illegal_argument_exception_when_given_minutes_are_lower_or_equal_than_zero() {
+        assertThrows(IllegalArgumentException.class, () -> movieRepository.findByMovieTemplate(new Movie(null, null, 0, null, null)));
+    }
+
+    @Test
+    void return_movies_by_template_when_is_not_null() {
+        Collection<Movie> moviesByTemplate = movieRepository.findByMovieTemplate(new Movie(1, null, null, null, null));
+
+        Collection<Integer> moviesIds = moviesByTemplate.stream().map(Movie::getId).collect(Collectors.toList());
+
+        assertEquals(Collections.singletonList(1), moviesIds);
     }
 
     @AfterEach

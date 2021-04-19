@@ -5,7 +5,10 @@ import com.platzi.javatests.movies.model.Movie;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class MovieRepositoryJdbc implements MovieRepository {
@@ -52,5 +55,18 @@ public class MovieRepositoryJdbc implements MovieRepository {
         return findAll().stream()
                 .filter(movie -> movie.getDirector().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<Movie> findByMovieTemplate(Movie template) {
+        if (template.getMinutes() <= 0) {
+            throw new IllegalArgumentException("El valor de los minutos debe ser mayor a cero");
+        }
+
+        if (template.getId() != null) {
+            return Collections.singletonList(findById(template.getId()));
+        }
+
+        return new ArrayList<>();
     }
 }
