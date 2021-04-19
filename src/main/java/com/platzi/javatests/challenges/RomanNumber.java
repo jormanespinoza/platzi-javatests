@@ -16,7 +16,7 @@ public class RomanNumber {
             String actualRoman = getRoman(actualArabicNumber, actualArabicNumberSize);
 
             if (actualRoman.equals("") && actualArabicNumber <= 3) {
-                actualRoman = getRepeateadLetters(actualArabicNumberSize, actualArabicNumber, actualRoman);
+                actualRoman = getRepeatedLetters(actualArabicNumberSize, actualArabicNumber, actualRoman);
             }
 
             if (actualRoman.equals("") && actualArabicNumber == 4) {
@@ -24,11 +24,11 @@ public class RomanNumber {
             }
 
             if (actualRoman.equals("") && actualArabicNumber >= 6 && actualArabicNumber <= 8) {
-                actualRoman += getRoman(5, actualArabicNumberSize) + getRepeateadLetters(actualArabicNumberSize, actualArabicNumber % 5, actualRoman);
+                actualRoman += getRoman(5, actualArabicNumberSize) + getRepeatedLetters(actualArabicNumberSize, actualArabicNumber % 5, actualRoman);
             }
 
             if (actualRoman.equals("") && actualArabicNumber == 9) {
-                actualRoman += getRepeateadLetters(actualArabicNumberSize, 1, actualRoman) + getRoman(1, actualArabicNumberSize + 1);
+                actualRoman += getRepeatedLetters(actualArabicNumberSize, 1, actualRoman) + getRoman(1, actualArabicNumberSize + 1);
             }
 
             romanNumber.append(actualRoman);
@@ -38,47 +38,37 @@ public class RomanNumber {
         return romanNumber.toString();
     }
 
-    private static String getRepeateadLetters(int arabicNumberSize, int times, String actualRoman) {
-        return actualRoman + String.valueOf(getRoman(1, arabicNumberSize)).repeat(Math.max(0, times));
+    private static String getRepeatedLetters(int arabicNumberSize, int times, String actualRoman) {
+        return actualRoman + getRoman(1, arabicNumberSize).repeat(Math.max(0, times));
     }
 
     private static String getRoman(int n, int arabicSize) {
-        String roman;
         n *= Math.pow(10, arabicSize - 1);
 
         switch (n) {
             case 1: {
-                roman = "I";
-                break;
+                return "I";
             }
             case 5: {
-                roman = "V";
-                break;
+                return "V";
             }
             case 10: {
-                roman = "X";
-                break;
+                return "X";
             }
             case 50: {
-                roman = "L";
-                break;
+                return "L";
             }
             case 100: {
-                roman = "C";
-                break;
+                return "C";
             }
             case 500: {
-                roman = "D";
-                break;
+                return "D";
             }
             case 1000: {
-                roman = "M";
-                break;
+                return "M";
             }
             default:
-                roman = "";
+                return "";
         }
-
-        return roman;
     }
 }
